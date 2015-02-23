@@ -1,5 +1,3 @@
-from Tkinter import *
-
 class placeableObject(object):
     def __init__(self, x, y, name = "", size = 0, oid = 0, txt = ""):
         self.x = x
