@@ -1,0 +1,55 @@
+import time
+from Tkinter import *
+import random
+import time
+# Window Defining
+window = Tk()
+window.title('Treasure Hunt!')
+canvas = Canvas(window, width = 600, height = 600, bg = 'white')
+canvas.pack(padx = 0, pady = 0)
+
+class Robot(object):
+    def __init__(self, x, y, size, colour = "black"):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.colour = colour
+    def drawRobot(self, canvas):
+        self.canvas = canvas
+        self.shape = canvas.create_rectangle(self.x, self.y, self.x + self.size, self.y + self.size, fill = self.colour)
+    def moveRobot(self, a, b):
+        self.a = a
+        self.b = b
+        self.x += self.a
+        self.y += self.b
+        self.canvas.coords(self.shape, self.x, self.y, self.x + self.size, self.y + self.size)
+        time.sleep(0.05)
+        self.canvas.update()
+
+class Treasure(object):
+    def __init__(self, x, y, size, colour = "green"):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.colour = colour
+    def drawTreasure(self, canvas):
+        self.canvas = canvas
+        self.shape = canvas.create_rectangle(self.x, self.y, self.x + self.size, self.y + self.size, fill = self.colour)
+
+Treasure1 = Treasure(400,400,size=50,colour="green")
+Treasure1.drawTreasure(canvas)
+Robot1 = Robot(100, 100, size=20, colour="black")
+Robot1.drawRobot(canvas)
+
+score = 100
+ScoreDraw = canvas.create_text(50,20, text='Robot1 Score: 0')
+for i in range(50):
+    
+    Robot1.moveRobot(10,10)
+    if (Robot1.x >= Treasure1.x -20)and (Robot1.x <= Treasure1.x + 50)and (Robot1.y >= Treasure1.y -20) and (Robot1.y <= Treasure1.y + 50): # collision detection
+        canvas.delete(ScoreDraw)
+        ScoreDraw = canvas.create_text(50,20, text= 'Robot1 Score: 100')
+        print score
+        break
+
+window.mainloop()
