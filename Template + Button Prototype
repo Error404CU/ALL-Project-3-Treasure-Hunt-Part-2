@@ -1,0 +1,44 @@
+# Importing libraries
+from Tkinter import *
+
+def cb():
+    print "variable is", var.get()
+
+# Window Defining
+window = Tk()
+window.title('Treasure Hunt!')
+canvas = Canvas(window, width = 1000, height = 600, bg = 'white')
+canvas.pack(padx = 0, pady = 0)
+
+# Lines
+line1 = canvas.create_line((0, 600, 800, 600),(800, 0, 800, 800),
+                           (800, 600, 1000, 600))
+
+gif1 = PhotoImage(file = 'tr1.gif')
+CheckVar1 = IntVar()
+C1 = Checkbutton(window, image = gif1, text = "Image", variable = CheckVar1, \
+                 onvalue = 1, offvalue = 0, height=35, \
+                 width = 70)
+C1.pack(side = LEFT)
+
+
+CheckVar2 = IntVar()
+C2 = Checkbutton(window, image = gif1, text = "Image", variable = CheckVar2, \
+                 onvalue = 1, offvalue = 0, height=35, \
+                 width = 70)
+C2.pack(side = LEFT)
+
+
+var = IntVar()
+c = Checkbutton(window, text="Enable Tab",variable=var, command = cb).pack()
+
+
+
+
+print C2
+print CheckVar2
+
+
+
+
+window.mainloop()
