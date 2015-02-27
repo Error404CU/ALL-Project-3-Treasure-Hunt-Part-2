@@ -59,12 +59,6 @@ ScoreDraw = canvas.create_text(50,20, text='Robot1 Score: 0')
 Treasure1 = Treasure(400,400,size=50,colour="green")
 Treasure1.drawTreasure(canvas)
 
-def checkbutton1():
-    if(var1.get()):
-        var1.set(1)
-        Treasure1 = Treasure(50,50,size=50,colour="green")
-        Treasure1.drawTreasure(canvas)
-
 var1=IntVar()
 checkbox1 = Checkbutton(window, text='1   ', variable=var1, command=checkbutton1)
 checkbox1.pack()
