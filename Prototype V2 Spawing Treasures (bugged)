@@ -1,0 +1,98 @@
+import time
+from Tkinter import *
+import random
+import time
+# Window Defining
+window = Tk()
+window.title('Treasure Hunt!')
+canvas = Canvas(window, width = 600, height = 600, bg = 'white')
+canvas.pack(padx = 0, pady = 0)
+
+class Robot(object):
+    def __init__(self, x, y, size, colour = "black"):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.colour = colour
+    def drawRobot(self, canvas):
+        self.canvas = canvas
+        self.shape = canvas.create_rectangle(self.x, self.y, self.x + self.size, self.y + self.size, fill = self.colour)
+    def moveRobot(self, a, b):
+        self.a = a
+        self.b = b
+        self.x += self.a
+        self.y += self.b
+        self.canvas.coords(self.shape, self.x, self.y, self.x + self.size, self.y + self.size)
+        time.sleep(0.025)
+        self.canvas.update()
+
+class Treasure(object):
+    def __init__(self, x, y, size, colour = "green"):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.colour = colour
+    def drawTreasure(self, canvas):
+        self.canvas = canvas
+        self.shape = canvas.create_rectangle(self.x, self.y, self.x + self.size, self.y + self.size, fill = self.colour)
+        
+def checkbutton1():
+    if(var1.get()):
+        var1.set(1)
+        Treasure1 = Treasure(400,400,size=50,colour="green")
+        Treasure1.drawTreasure(canvas)
+var1=IntVar()
+x_min = 50
+y_min = 50
+x_max = 550
+y_max = 550
+a = 10
+b = 10
+Robot1 = Robot(100, 100, size=20, colour="black")
+Robot1.drawRobot(canvas)
+moveList = [10, -10, 10,-10]
+
+a = 10
+b = 10
+score = 0
+ScoreDraw = canvas.create_text(50,20, text='Robot1 Score: 0')
+Treasure1 = Treasure(400,400,size=50,colour="green")
+Treasure1.drawTreasure(canvas)
+
+def checkbutton1():
+    if(var1.get()):
+        var1.set(1)
+        Treasure1 = Treasure(50,50,size=50,colour="green")
+        Treasure1.drawTreasure(canvas)
+
+var1=IntVar()
+checkbox1 = Checkbutton(window, text='1   ', variable=var1, command=checkbutton1)
+checkbox1.pack()
+    
+for i in range(500):
+    
+    Robot1.moveRobot(a,b)
+    if (Robot1.x >= Treasure1.x -20)and (Robot1.x <= Treasure1.x + 50)\
+       and (Robot1.y >= Treasure1.y -20)and (Robot1.y <= Treasure1.y + 50): # collision detection
+            canvas.delete(ScoreDraw)
+            #Treasure1 = Treasure(-10,-10,size=0,colour="green")
+            ScoreDraw = canvas.create_text(50,20, text= 'Robot1 Score: 100') 
+            a = random.choice(moveList)
+            b =  random.choice(moveList)
+            score += 100
+            print score
+    if (Robot1.x <= x_min):
+        a= random.choice(moveList)
+        b=random.choice(moveList)
+    elif (Robot1.x >= x_max):
+        a= random.choice(moveList)
+        b=random.choice(moveList)
+    elif (Robot1.y <= y_min):
+        a= random.choice(moveList)
+        b=random.choice(moveList)
+    elif (Robot1.y >= y_max):
+        a= random.choice(moveList)
+        b=random.choice(moveList)
+
+        
+window. mainloop()
