@@ -179,29 +179,13 @@ def StartB():
                         #TrList[j].deleteTreasure( canvas, shape)
                         print TotalScore
                     if (Robot1.x <= x_min):
-                        for r in range(5):
-                            a = -a
-                            b = -b
-                        a= random.choice(moveList)
-                        b=random.choice(moveList)
-                    elif (Robot1.x >= x_max):
-                        for r in range(5):
-                            a = -a
-                            b = -b                    
-                        a= random.choice(moveList)
-                        b=random.choice(moveList)
-                    elif (Robot1.y <= y_min):
-                        for r in range(5):
-                            a = -a
-                            b = -b                  
-                        a= random.choice(moveList)
-                        b=random.choice(moveList)
-                    elif (Robot1.y >= y_max):
-                        for r in range(5):
-                            a = -a
-                            b = -b              
-                        a= random.choice(moveList)
-                        b=random.choice(moveList)
+                        a = 10.0
+                    elif (Robot1.x >= x_max):             
+                        a =  -10.0
+                    elif (Robot1.y <= y_min):                 
+                        b = 10.0
+                    elif (Robot1.y >= y_max):            
+                        b = -10.0
 
         Insertion_Sort(ScoreList)
         print ScoreList
