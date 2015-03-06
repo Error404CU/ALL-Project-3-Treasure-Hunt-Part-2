@@ -69,7 +69,7 @@ def Insertion_Sort(ScoreList):
                 j = j - 1
             else:
                 break                       #No swapping needs to occur
-Trap1 = Traps(randint(50,500),randint(50,500),size=20,colour="blue")
+Trap1 = Traps(randint(50,500),randint(50,500),size=20,colour="blue")    #Child Trap class inheriting from the parent Treasure class to draw the traps
 Trap1.drawObject(canvas)
 Trap2= Traps(randint(50,500), randint(50,500),size=20,colour="blue")
 Trap2.drawObject(canvas)
@@ -176,10 +176,10 @@ def StartB():
                             TrList[j].y = 0
                             print TotalScore
                         if (Robot1.x >= Trap1.x -40)and (Robot1.x <=Trap1.x + 40)and (Robot1.y >= Trap1.y -40)and (Robot1.y <= Trap1.y + 40):
-                             canvas.delete(Trap1.shape)#inheritance of Treasure class
-                             Trap1.x = 0
+                             canvas.delete(Trap1.shape)#Inheritance of Treasure class, using the deleteObject method
+                             Trap1.x = 0                            #Inheritance using the drawObject method
                              Trap1.y = 0
-                             a = 0
+                             a = 0 
                              b = 0
                              time.sleep(4)
                              a = random.choice(moveList)
@@ -202,10 +202,11 @@ def StartB():
                         elif (Robot1.y >= y_max):            
                             b = -10.0
 
-        Insertion_Sort(ScoreList)
-        print ScoreList
+        Insertion_Sort(ScoreList)#Calling the Insertion sort function
+        print ScoreList #printing the results from the sort
 var2 = IntVar()
 checkbox2 =Checkbutton(window, text='Start!  ', variable=var2, command =StartB)
 checkbox2.pack()
         
 window. mainloop()
+
