@@ -37,15 +37,20 @@ class Treasure():
         self.y = y
         self.size = size
         self.colour = colour
-    def drawTreasure(self, canvas):
+    def drawObject(self, canvas):
         self.canvas = canvas
         self.shape = canvas.create_rectangle(self.x, self.y, self.x + self.size, self.y + self.size, fill = self.colour)
-    def deleteTreasure(self, canvas, shape):
+    def deleteObject(self, canvas, shape):
          self.canvas = canvas
          self.canvas.delete(self.shape)
          self.remove = remove
-         #self.shape = shape
-         #self.canvas.update()
+
+class Traps(Treasure, Robot): #Child Class is Traps, Parent classes are Treasure and Robot
+
+    def drawTrap(self, canvas):
+        self.canvas = canvas
+        
+        
 
 ScoreList  = []
         
@@ -64,7 +69,10 @@ def Insertion_Sort(ScoreList):
                 j = j - 1
             else:
                 break                       #No swapping needs to occur
-
+Trap1 = Traps(randint(50,500),randint(50,500),size=20,colour="blue")
+Trap1.drawObject(canvas)
+Trap2= Traps(randint(50,500), randint(50,500),size=20,colour="blue")
+Trap2.drawObject(canvas)
 x_min = 50
 y_min = 50
 x_max = 750
@@ -80,9 +88,6 @@ moveList = [10, -10, 10,-10]
 TrList = []
 ScoreList = []
 
-a = 10
-b = 10
-
 CurrentScore = 0
 TotalScore = 0
 
@@ -95,14 +100,14 @@ def Treasure1():
         global Treasure1
         global TrList
         Treasure1 = Treasure(randint(50,500),randint(50,500),size=40,colour="green")
-        Treasure1.drawTreasure(canvas)
+        Treasure1.drawObject(canvas)
         TrList.append(Treasure1)
 def Treasure2():
     if(var3.get()):
        var3.set(1)
        global Treasure2
        Treasure2 = Treasure(randint(50,500),randint(50,500),size=40,colour="green")
-       Treasure2.drawTreasure(canvas)
+       Treasure2.drawObject(canvas)
        TrList.append(Treasure2)
 
 def Treasure3():
@@ -110,7 +115,7 @@ def Treasure3():
         var4.set(1)
         global Treasure3
         Treasure3 = Treasure(randint(50,500),randint(50,500),size=40,colour="green")
-        Treasure3.drawTreasure(canvas)
+        Treasure3.drawObject(canvas)
         TrList.append(Treasure3)
 
 def Treasure4():
@@ -118,14 +123,14 @@ def Treasure4():
         var5.set(1)
         global Treasure4
         Treasure4 = Treasure(randint(50,500),randint(50,500),size=40,colour="green")
-        Treasure4.drawTreasure(canvas)
+        Treasure4.drawObject(canvas)
         TrList.append(Treasure4)
 def Treasure5():
     if (var6.get()):
         var6.set(1)
         global Treasure5
         Treasure5= Treasure(randint(50,500),randint(50,500),size=40,colour="green")
-        Treasure5.drawTreasure(canvas)
+        Treasure5.drawObject(canvas)
         TrList.append(Treasure5)
         
 
@@ -158,9 +163,7 @@ def StartB():
                 global shape
                 for j in range(0, len(TrList)):
                         Robot1.moveRobot(a,b)
-                        if (Robot1.x >= TrList[j].x -40)and (Robot1.x <=TrList[j].x + 40)\
-                           and (Robot1.y >= TrList[j].y -40)and (Robot1.y <= TrList[j].y + 40):# collision detection
-                            #count +=1
+                        if (Robot1.x >= TrList[j].x -40)and (Robot1.x <=TrList[j].x + 40)and (Robot1.y >= TrList[j].y -40)and (Robot1.y <= TrList[j].y + 40):
                             CurrentScore = randint(1,100)
                             ScoreList.append(CurrentScore)
                             TotalScore = TotalScore + CurrentScore
@@ -172,6 +175,24 @@ def StartB():
                             TrList[j].x = 0
                             TrList[j].y = 0
                             print TotalScore
+                        if (Robot1.x >= Trap1.x -40)and (Robot1.x <=Trap1.x + 40)and (Robot1.y >= Trap1.y -40)and (Robot1.y <= Trap1.y + 40):
+                             canvas.delete(Trap1.shape)#inheritance of Treasure class
+                             Trap1.x = 0
+                             Trap1.y = 0
+                             a = 0
+                             b = 0
+                             time.sleep(4)
+                             a = random.choice(moveList)
+                             b =  random.choice(moveList)
+                        if(Robot1.x >= Trap2.x -40)and (Robot1.x <=Trap2.x + 40)and (Robot1.y >= Trap2.y -40)and (Robot1.y <= Trap2.y + 40):
+                            canvas.delete(Trap2.shape)
+                            Trap2.x = 0
+                            Trap2.y = 0
+                            a = 0
+                            b = 0
+                            time.sleep(4)
+                            a = random.choice(moveList)
+                            b =  random.choice(moveList)
                         if (Robot1.x <= x_min):
                             a = 10.0
                         elif (Robot1.x >= x_max):             
