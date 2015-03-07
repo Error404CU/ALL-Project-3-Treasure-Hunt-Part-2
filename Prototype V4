@@ -4,7 +4,6 @@ import random
 from random import randint
 import time
 # Window Defining
-# Window Defining
 window = Tk()
 window.title('Treasure Hunt!')
 canvas = Canvas(window, width = 1000, height = 600, bg = 'white')
@@ -12,9 +11,8 @@ canvas.pack(padx = 0, pady = 0)
 # Lines
 line1 = canvas.create_line((0, 600, 800, 600),(800, 0, 800, 800),
 (800, 600, 1000, 600))
-
+#Allows the user to input a time of their choice
 x = int(raw_input("Enter Robot Movment Time (seconds):  "))
-
 
 class Robot():
     def __init__(self, x, y, size, colour = "black"):
@@ -76,6 +74,9 @@ Trap1 = Traps(randint(50,500),randint(50,500),size=20,colour="blue")    #Child T
 Trap1.drawObject(canvas)
 Trap2= Traps(randint(50,500), randint(50,500),size=20,colour="blue")
 Trap2.drawObject(canvas)
+
+#Canvas boundaries
+
 x_min = 50
 y_min = 50
 x_max = 750
@@ -83,6 +84,8 @@ y_max = 550
 
 a = 10
 b = 10
+
+Creating an instance of the Robot class
 
 Robot1 = Robot(100, 100, size=20, colour="black")
 Robot1.drawRobot(canvas)
@@ -96,6 +99,8 @@ TotalScore = 0
 
 
 ScoreDraw = canvas.create_text(50,20, text='Robot1 Score: 0')
+
+#Checkbox functions (their functionality)
 
 def Treasure1():
     if(var1.get()):
@@ -137,7 +142,7 @@ def Treasure5():
         TrList.append(Treasure5)
         
 
-
+#Creating the checkboxes on the map
 
 var1=IntVar()
 checkbox1 = Checkbutton(window, text='Treasure 1   ', variable=var1, command=Treasure1)
@@ -155,11 +160,13 @@ var6=IntVar()
 checkbox6= Checkbutton(window, text='Treasure 5 ', variable=var6,command=Treasure5)
 checkbox6.pack(side = LEFT)
 
+#Robot Movement,and the main running of the program
+
 def StartB():
     if(var2.get()):
         var2.set(1)
-        timer = time.time() + x
-        while time.time() < timer:
+        timer = time.time() + x     #Adds the userdefined time to the current time
+        while time.time() < timer:  #User input timer starts
                 global a
                 global b
                 global score
@@ -167,7 +174,7 @@ def StartB():
                 global TotalScore
                 global CurrentScore
                 global shape
-                for j in range(0, len(TrList)):
+                for j in range(0, len(TrList)):         #Robot1 checks for treasures appended to the list
                         Robot1.moveRobot(a,b)
                         if (Robot1.x >= TrList[j].x -40)and (Robot1.x <=TrList[j].x + 40)and (Robot1.y >= TrList[j].y -40)and (Robot1.y <= TrList[j].y + 40):
                             CurrentScore = randint(1,100)
@@ -177,7 +184,7 @@ def StartB():
                             ScoreDraw = canvas.create_text(50,20, text= "Robot1 Score: %r "  %TotalScore)
                             a = random.choice(moveList)
                             b =  random.choice(moveList)
-                            canvas.delete(TrList[j].shape)
+                            canvas.delete(TrList[j].shape)      #Deletes the shape and the collsision check from the screen
                             TrList[j].x = 0
                             TrList[j].y = 0
                             print TotalScore
@@ -199,7 +206,7 @@ def StartB():
                             time.sleep(4)
                             a = random.choice(moveList)
                             b =  random.choice(moveList)
-                        if (Robot1.x <= x_min):
+                        if (Robot1.x <= x_min):         #Robot checking boundaries
                             a = 10.0
                         elif (Robot1.x >= x_max):             
                             a =  -10.0
