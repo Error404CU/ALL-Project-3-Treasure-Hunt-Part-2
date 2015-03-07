@@ -165,7 +165,7 @@ checkbox6.pack(side = LEFT)
 def StartB():
     if(var2.get()):
         var2.set(1)
-        timer = time.time() + x     #Adds the userdefined time to the current time
+        timer = time.time() + x     #Adds the user defined time to the current time
         while time.time() < timer:  #User input timer starts
                 global a
                 global b
