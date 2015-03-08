@@ -1,4 +1,3 @@
-__author__ = 'Radu'
 from Tkinter import *
 import math
 import random
