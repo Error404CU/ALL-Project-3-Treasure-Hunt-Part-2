@@ -1,0 +1,311 @@
+__author__ = 'Radu'
+from Tkinter import *
+import math
+import random
+import time
+
+# ***** Window Defining *****
+root = Tk()
+root.title('Treasure Hunt!')
+canvas = Canvas(root, width=1000, height=500, bg='white')
+canvas.pack()
+
+
+# ***** Classes *****
+class Treasure():
+    def __init__(self, x, y, t=0, score=0, f=0, size=50):
+        self.x = x
+        self.y = y
+        self.t = t
+        self.f = f
+        self.score = score
+        self.size = size
+    def drawTreasure(self, canvas):
+        self.canvas = canvas
+        if self.t == 1:
+            self.p = self.canvas.create_image(self.x, self.y, image=image1, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 2:
+            self.p = self.canvas.create_image(self.x, self.y, image=image2, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 3:
+            self.p = self.canvas.create_image(self.x, self.y, image=image3, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 4:
+            self.p = self.canvas.create_image(self.x, self.y, image=image4, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 5:
+            self.p = self.canvas.create_image(self.x, self.y, image=image5, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 6:
+            self.p = self.canvas.create_image(self.x, self.y, image=image6, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 7:
+            self.p = self.canvas.create_image(self.x, self.y, image=image7, anchor=NW)
+            self.score = random.randint(100, 200)
+        elif self.t == 8:
+            self.p = self.canvas.create_image(self.x, self.y, image=image8, anchor=NW)
+            self.score = random.randint(100, 200)
+        self.canvas.update()
+    def drawTreasureF(self, canvas):
+        self.canvas = canvas
+        if self.t == 1:
+            self.p = self.canvas.create_image(self.x, self.y, image=image1, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 35, text = "%r" %self.score)
+        elif self.t == 2:
+            self.p = self.canvas.create_image(self.x, self.y, image=image2, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        elif self.t == 3:
+            self.p = self.canvas.create_image(self.x, self.y, image=image3, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        elif self.t == 4:
+            self.p = self.canvas.create_image(self.x, self.y, image=image4, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        elif self.t == 5:
+            self.p = self.canvas.create_image(self.x, self.y, image=image5, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        elif self.t == 6:
+            self.p = self.canvas.create_image(self.x, self.y, image=image6, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        elif self.t == 7:
+            self.p = self.canvas.create_image(self.x, self.y, image=image7, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        elif self.t == 8:
+            self.p = self.canvas.create_image(self.x, self.y, image=image8, anchor=NW)
+            self.q = self.canvas.create_text(self.x - 5, self.y + 5, text = "%r" %self.score)
+        self.canvas.update()
+    def deleteTreasure(self):
+        self.canvas = canvas
+        self.canvas.delete(self.p)
+        self.canvas.update()
+
+
+class Robot():
+    def __init__(self, x, y, size, score=0, q = 0):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.score = score
+        self.q = q
+    def drawRobot(self, canvas):
+        self.canvas = canvas
+        self.shape = canvas.create_rectangle(self.x, self.y, self.x + self.size, self.y + self.size)
+    def moveRobot(self, a, b):
+        self.a = a
+        self.b = b
+        self.x += self.a
+        self.y += self.b
+        self.canvas.coords(self.shape, self.x, self.y, self.x + self.size, self.y + self.size)
+        time.sleep(0.0010)
+        self.canvas.update()
+    def scoreRobot(self, canvas):
+        self.canvas = canvas
+        self.canvas.delete(self.q)
+        self.q = canvas.create_text(840, 15, text="Score: %r" % self.score)
+
+
+# ***** Functions *****
+def mainloop():
+
+    global abc
+    if abc == 1:
+        abc = 0
+
+
+        r = Robot(10, 10, 10)
+        r.drawRobot(canvas)
+        r.scoreRobot(canvas)
+        x1 = 820
+        y1 = 60
+        count2 = 0
+        tList = []
+        j = 1
+        for i in CheckVarT:
+            if i.get() == 1:
+                tList.append(j)
+            j += 1
+
+        # ***** Landmark creation and positioning *****
+        listLmk = []                 # Landmark List
+        lnr = [9, 16, 25, 36]    # Possible number of landmarks
+        nr = random.choice(lnr)
+
+        for i in range(1, nr + 1):
+            x = "lmk" + str(i)
+            listLmk.append(x)
+
+        rows = math.sqrt(nr)
+        spaceBetweenC = (800 - 50 * rows) / (rows + 1)
+        x = spaceBetweenC
+        spaceBetweenR = (500 - 50 * rows) / (rows + 1)
+        y = spaceBetweenR
+        count = 0               # Counter
+        q = -1                   # Treasure number
+        qt = 1
+        for i in range(0, len(listLmk)):
+            if q == len(tList)-1:
+                qt = 0
+            else:
+                q += 1
+
+            if qt == 1:
+                tr = tList[q]
+            else:
+                tr = tList[random.randint(0, q)]
+            listLmk[i] = Treasure(x, y, tr)
+            listLmk[i].drawTreasure(canvas)
+
+            x += 50 + spaceBetweenC
+            count += 1
+            if count == rows:
+                y += 50 + spaceBetweenR
+                x = spaceBetweenC
+                count = 0
+        limit = 0
+        timer = time.time() + timex
+        while time.time() < timer:
+            while limit <= len(listLmk):
+                shortestDist = 10000
+                lmk = -1
+                for i in range(0, len(listLmk)):
+                    if listLmk[i].f == 0:
+                        dist = abs((r.x + r.y) - (listLmk[i].x + listLmk[i].y))         # Calculating distance
+                        if dist < shortestDist:
+                            shortestDist = dist
+                            lmk = i
+                    else:
+                        limit += 1
+                print limit
+                print shortestDist
+
+                while ((r.x <= listLmk[lmk].x-5 or r.x >= listLmk[lmk].x+5) \
+                        or (r.y <= listLmk[lmk].y-5 or r.y >= listLmk[lmk].y+5)) \
+                        and listLmk[lmk].x <= 790:
+                    if r.x < listLmk[lmk].x:                                        # Moving Robot
+                        r.moveRobot(1, 0)
+                    elif r.x > listLmk[lmk].x:
+                        r.moveRobot(-1, 0)
+                    if r.y < listLmk[lmk].y:
+                        r.moveRobot(0, 1)
+                    elif r.y > listLmk[lmk].y:
+                        r.moveRobot(0, -1)
+                r.score += listLmk[lmk].score
+                r.scoreRobot(canvas)
+                listLmk[lmk].f = 1
+                limit += 1
+                treasure = listLmk[lmk].t
+                scorex = listLmk[lmk].score
+                listLmk[lmk].deleteTreasure()
+                listLmk[lmk] = Treasure(x1, y1, treasure, scorex)
+                listLmk[lmk].drawTreasureF(canvas)
+                x1 += 16 + 30
+                count2 += 1
+                if count2 == 4:
+                    x1 = 816
+                    y1 += 16 + 30
+                    count2 = 0
+            abc = 0
+
+# ***** Lines *****
+line1 = canvas.create_line((0, 500, 800, 500), (800, 0, 800, 800), (800, 500, 1000, 500))
+
+
+# ***** Images *****
+image1 = PhotoImage(file="Pics\T1.gif")
+image2 = PhotoImage(file="Pics\T2.gif")
+image3 = PhotoImage(file="Pics\T3.gif")
+image4 = PhotoImage(file="Pics\T4.gif")
+image5 = PhotoImage(file="Pics\T5.gif")
+image6 = PhotoImage(file="Pics\T6.gif")
+image7 = PhotoImage(file="Pics\T7.gif")
+image8 = PhotoImage(file="Pics\T8.gif")
+image9 = PhotoImage(file="Pics\T9.gif")
+
+
+# ***** Buttons *****
+lFrame = Frame(root, height=60)
+lFrame.pack(side=BOTTOM)
+text1 = Label(lFrame, text="Available Treasures:")
+text1.grid(row=0, column=0, padx=2, pady=2, sticky=W)
+text2 = Label(lFrame, text="Wish List:")
+text2.grid(row=0, column=5, columnspan=2, pady=2, sticky=W)
+text3 = Label(lFrame, text="               ")
+text3.grid(row=0, column=4, rowspan = 4, sticky=E)
+text4 = Label(lFrame, text="Enter maximum \n duration(seconds):")
+text4.grid(row=1, column=8, sticky=W)
+text5 = Label(lFrame, text="               ")
+text5.grid(row=0, column=7, rowspan = 4, sticky=E)
+e1 = Entry(lFrame)
+e1.grid(row=2, column=8, sticky=W)
+
+CheckVar1 = IntVar()
+CheckVar2 = IntVar()
+CheckVar3 = IntVar()
+CheckVar4 = IntVar()
+CheckVar5 = IntVar()
+CheckVar6 = IntVar()
+CheckVar7 = IntVar()
+CheckVar8 = IntVar()
+CheckVar9 = IntVar()
+CheckVar10 = IntVar()
+CheckVar11 = IntVar()
+CheckVar12 = IntVar()
+CheckVar13 = IntVar()
+CheckVar14 = IntVar()
+CheckVar15 = IntVar()
+CheckVar16 = IntVar()
+CheckVarT = [CheckVar1, CheckVar2, CheckVar3, CheckVar4, CheckVar5, CheckVar6, CheckVar7, CheckVar8]
+CheckVarW = [CheckVar9, CheckVar10, CheckVar11, CheckVar12, CheckVar13, CheckVar14, CheckVar15, CheckVar16]
+
+button1 = Checkbutton(lFrame, text="Treasure Chest", image=image1, compound="left",
+        variable=CheckVar1, onvalue=1, offvalue=0)
+button1.grid(row=1, sticky=W)
+button2 = Checkbutton(lFrame, text="Golden Coin", image=image2, compound="left",
+        variable=CheckVar2, onvalue=1, offvalue=0)
+button2.grid(row=2, sticky=W)
+button3 = Checkbutton(lFrame, text="Diamond", image=image3, compound="left",
+        variable=CheckVar3, onvalue=1, offvalue=0)
+button3.grid(row=1, column=1, sticky=W)
+button4 = Checkbutton(lFrame, text="Ruby", image=image4, compound="left",
+        variable=CheckVar4, onvalue=1, offvalue=0)
+button4.grid(row=2, column=1, sticky=W)
+button5 = Checkbutton(lFrame, text="Golden Ring", image=image5, compound="left",
+        variable=CheckVar5, onvalue=1, offvalue=0)
+button5.grid(row=1, column=2, sticky=W)
+button6 = Checkbutton(lFrame, text="Lamborghini", image=image6, compound="left",
+        variable=CheckVar6, onvalue=1, offvalue=0)
+button6.grid(row=2, column=2, sticky=W)
+button7 = Checkbutton(lFrame, text="Golden Cup", image=image7, compound="left",
+        variable=CheckVar7, onvalue=1, offvalue=0)
+button7.grid(row=1, column=3, sticky=W)
+button8 = Checkbutton(lFrame, text="Golden Watch", image=image8, compound="left",
+        variable=CheckVar8, onvalue=1, offvalue=0)
+button8.grid(row=2, column=3, sticky=W)
+
+button9 = Checkbutton(lFrame, text="Treasure Chest", variable=CheckVar9, onvalue=1, offvalue=0)
+button9.grid(row=1, column=5, sticky=W)
+button10 = Checkbutton(lFrame, text="Golden Coin", variable=CheckVar10, onvalue=1, offvalue=0)
+button10.grid(row=2, column=5, sticky=W)
+button11 = Checkbutton(lFrame, text="Diamond", variable=CheckVar11, onvalue=1, offvalue=0)
+button11.grid(row=3, column=5, sticky=W)
+button12 = Checkbutton(lFrame, text="Ruby", variable=CheckVar12, onvalue=1, offvalue=0)
+button12.grid(row=4, column=5, sticky=W, pady=10)
+button13 = Checkbutton(lFrame, text="Golden Ring", variable=CheckVar13, onvalue=1, offvalue=0)
+button13.grid(row=1, column=6, sticky=W)
+button14 = Checkbutton(lFrame, text="Lamborghini", variable=CheckVar14, onvalue=1, offvalue=0)
+button14.grid(row=2, column=6, sticky=W)
+button15 = Checkbutton(lFrame, text="Golden Cup", variable=CheckVar15, onvalue=1, offvalue=0)
+button15.grid(row=3, column=6, sticky=W)
+button16 = Checkbutton(lFrame, text="Golden Watch", variable=CheckVar16, onvalue=1, offvalue=0)
+button16.grid(row=4, column=6, sticky=W, pady=10)
+
+global abc
+abc = 1
+sButton = Button(lFrame, text="Start", command=mainloop)
+sButton.grid(row=3, column=8, rowspan=2, columnspan=2, padx=10, pady=10)
+global timex
+timex = int(raw_input("Time: "))
+
+
+
+root.mainloop()
